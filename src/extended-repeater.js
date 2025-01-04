@@ -1,5 +1,3 @@
-const { NotImplementedError } = require('../extensions/index.js');
-
 /**
  * Create a repeating string based on the given parameters
  *  
@@ -15,9 +13,26 @@ const { NotImplementedError } = require('../extensions/index.js');
  * => 'STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS'
  *
  */
-function repeater(/* str, options */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+const repeatStr = (str, times, sep) => str.concat(sep).repeat(times - 1).concat(str);
+
+function repeater(str, options) {
+  const {
+    addition,
+    separator = '+',
+    additionSeparator = '|',
+    repeatTimes,
+    additionRepeatTimes,
+  } = options;
+
+  return repeatStr(
+    addition !== undefined ?
+      String(str).concat(
+        repeatStr(String(addition), additionRepeatTimes, additionSeparator)
+      ) :
+      String(str),
+    repeatTimes,
+    separator,
+  );
 }
 
 module.exports = {
